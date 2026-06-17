@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Toolkit | Mohd Jaun Rizvi</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fa;
+color:#222;
+transition:0.4s;
+}
+
+.dark{
+background:#121212;
+color:white;
+}
+
+header{
+background:linear-gradient(135deg,#007bff,#00c6ff);
+color:white;
+padding:60px 20px;
+text-align:center;
+}
+
+header h1{
+font-size:3rem;
+}
+
+header p{
+margin-top:10px;
+font-size:1.1rem;
+}
+
+.profile{
+text-align:center;
+padding:40px 20px;
+}
+
+.profile img{
+width:180px;
+height:180px;
+border-radius:50%;
+object-fit:cover;
+border:5px solid #007bff;
+}
+
+.profile h2{
+margin-top:15px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.dark .card{
+background:#1f1f1f;
+}
+
+.card h3{
+margin-bottom:15px;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+background:#007bff;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+#notes{
+height:120px;
+}
+
+.dark-btn{
+position:fixed;
+top:20px;
+right:20px;
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:40px;
+}
+
+footer a{
+color:#00c6ff;
+text-decoration:none;
+}
+
+footer p{
+margin:8px 0;
+}
+</style>
+</head>
+<body>
+
+<button class="dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+<header>
+<h1>Global Toolkit</h1>
+<p>Useful Online Tools For Everyone</p>
+</header>
+
+<section class="profile">
+<img src="https://img.sanishtech.com/u/62b91600ca04040f6cf227ef0a9dc6fc.png" alt="file_00000000cf907206835a929fd4ddd168" loading="lazy" style="max-width:100%;height:auto;"> 
+<h2>Mohd Jaun Rizvi</h2>
+<p>Developer • Creator • Student</p>
+</section>
+
+<div class="container">
+
+<div class="tools">
+
+<div class="card">
+<h3>Age Calculator</h3>
+<input type="date" id="dob">
+<button onclick="calculateAge()">Calculate Age</button>
+<p id="ageResult"></p>
+</div>
+
+<div class="card">
+<h3>BMI Calculator</h3>
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="height" placeholder="Height (m)">
+<button onclick="calculateBMI()">Calculate BMI</button>
+<p id="bmiResult"></p>
+</div>
+
+<div class="card">
+<h3>Password Generator</h3>
+<button onclick="generatePassword()">Generate Password</button>
+<p id="password"></p>
+</div>
+
+<div class="card">
+<h3>Quick Notes</h3>
+<textarea id="notes" placeholder="Write your notes here..."></textarea>
+<button onclick="saveNote()">Save Note</button>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+<h3>Designed By Mohd Jaun Rizvi</h3>
+
+<p>
+Instagram:
+<a href="https://instagram.com/syedjaunrizvi" target="_blank">
+@syedjaunrizvi
+</a>
+</p>
+
+<p>
+X:
+<a href="https://x.com/MohdJaunRi5" target="_blank">
+@MohdJaunRi5
+</a>
+</p>
+
+<p>© 2026 Global Toolkit. All Rights Reserved.</p>
+</footer>
+
+<script>
+function toggleDarkMode(){
+document.body.classList.toggle("dark");
+}
+
+function calculateAge(){
+let dob=new Date(document.getElementById("dob").value);
+let today=new Date();
+let age=today.getFullYear()-dob.getFullYear();
+document.getElementById("ageResult").innerHTML=
+"Your Age: "+age+" Years";
+}
+
+function calculateBMI(){
+let w=parseFloat(document.getElementById("weight").value);
+let h=parseFloat(document.getElementById("height").value);
+
+if(w && h){
+let bmi=(w/(h*h)).toFixed(2);
+document.getElementById("bmiResult").innerHTML=
+"Your BMI: "+bmi;
+}
+}
+
+function generatePassword(){
+let chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
+let pass="";
+for(let i=0;i<12;i++){
+pass+=chars.charAt(Math.floor(Math.random()*chars.length));
+}
+document.getElementById("password").innerHTML=pass;
+}
+
+function saveNote(){
+localStorage.setItem("myNote",
+document.getElementById("notes").value);
+alert("Note Saved!");
+}
+
+window.onload=function(){
+document.getElementById("notes").value=
+localStorage.getItem("myNote") || "";
+}
+</script>
+
+</body>
+</html>
